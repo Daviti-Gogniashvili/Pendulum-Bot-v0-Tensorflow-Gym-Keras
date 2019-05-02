@@ -15,8 +15,7 @@ import tensorflow as tf
 import random
 from collections import deque
 
-# determines how to assign values to each state, i.e. takes the state
-# and action (two-input model) and determines the corresponding value
+
 class ActorCritic:
 	def __init__(self, env, sess):
 		self.env  = env
