@@ -2,30 +2,30 @@
 solving pendulum using actor-critic model
 """
 
-import gym
-import numpy as np 
-from keras.models import Sequential, Model
+import gym #ეს ბიბლიოთეკა საჭიროა სატესტო ალგორითმების და გარემოს შესაქმნელად
+import numpy as np #ბიბლიოთეკა რომელიც მუშაობს მრავალგანზომილებიან მასივებზე
+from keras.models import Sequential, Model #ეს ბიბლიოთეკა საჭიროა თენსორფლოუს და მსგავსი ბიბლიოთეკების მარტივად მოსახმარად
 from keras.layers import Dense, Dropout, Input
 from keras.layers.merge import Add, Multiply
 from keras.optimizers import Adam
 import keras.backend as K
 
-import tensorflow as tf
+import tensorflow as tf # ნეიროლური ქსელის შესაქმნელად საჭირო ბიბლიოთეკა
 
 import random
-from collections import deque
+from collections import deque # უფრო მარტივი სიის ვარიანტი
 
 
 class ActorCritic:
 	def __init__(self, env, sess):
-		self.env  = env
-		self.sess = sess
+		self.env  = env #გარემო
+		self.sess = sess #სესია
 
-		self.learning_rate = 0.001
-		self.epsilon = 1.0
+		self.learning_rate = 0.001#
+		self.epsilon = 1.0 #
 		self.epsilon_decay = .995
 		self.gamma = .95
-		self.tau   = .125
+		self.tau   = .125 #ეპიზოდებს შორის ინტერვალი
 
 
 		self.memory = deque(maxlen=2000)
@@ -127,7 +127,7 @@ class ActorCritic:
 		
 		for i in range(len(actor_target_weights)):
 			actor_target_weights[i] = actor_model_weights[i]
-		self.target_critic_model.set_weights(actor_target_weights)
+		self.target_actor_model.set_weights(actor_target_weights)
 
 	def _update_critic_target(self):
 		critic_model_weights  = self.critic_model.get_weights()
